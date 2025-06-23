@@ -1,44 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>Your Name</title>
+  <title>Sample Website</title>
   <style>
     body {
-      font-family: "Georgia", "Times New Roman", serif;
-      max-width: 700px;
+      font-family: Georgia, serif;
+      max-width: 800px;
       margin: 40px auto;
-      line-height: 1.6;
     }
-    a { color: #003366; text-decoration: none; }
-    h1, h2 { margin-top: 1.5em; }
-    img {
-      float: right;
-      margin: 0 0 1em 2em;
-      max-width: 200px;
+
+    .box {
+      border: 2px dashed gray;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .flex-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .flex-box {
+      flex: 1;
+      border: 2px solid black;
+      padding: 10px;
+    }
+
+    .bg-box {
+      background-image: url('https://via.placeholder.com/800x200');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 40px;
+      border-radius: 10px;
     }
   </style>
 </head>
+
 <body>
-  <h1>Your Name</h1>
-  <p>
-    <img src="you.jpg" alt="Picture of you">
-    Ph.D. student in Statistics, Yale University<br>
-    Email: you@yale.edu
-  </p>
+  <h1>📐 Demo Layout</h1>
 
-  <h2>Research</h2>
-  <ul>
-    <li><a href="paper1.pdf">Title of Paper</a>, with X, Y. Under review.</li>
-    <li><a href="https://arxiv.org/abs/XXXX.XXXXX">Another Paper</a>, Annals of Stat 2024.</li>
-  </ul>
+  <div class="box">
+    <h2>1. Basic Block</h2>
+    <p>This box is a regular div with a border. It takes up the full width.</p>
+  </div>
 
-  <h2>Teaching</h2>
-  <ul>
-    <li>STAT 241 (Spring 2025): Teaching Assistant</li>
-  </ul>
+  <div class="flex-container">
+    <div class="flex-box">Left box</div>
+    <div class="flex-box">Right box</div>
+  </div>
 
-  <h2>CV</h2>
-  <p><a href="cv.pdf">Download my CV (PDF)</a></p>
+  <div class="box">
+    <h2>2. Image Example</h2>
+    <img src="https://via.placeholder.com/150" alt="Sample image">
+  </div>
+
+  <div class="bg-box">
+    <h2>3. Background Image Box</h2>
+    <p>This text is layered on top of a background image.</p>
+  </div>
 </body>
 </html>
