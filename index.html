@@ -2,63 +2,99 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Sample Website</title>
+  <title>Max's Site</title>
   <style>
     body {
+      margin: 0;
       font-family: Georgia, serif;
-      max-width: 800px;
-      margin: 40px auto;
     }
 
-    .box {
-      border: 2px dashed gray;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .flex-container {
-      display: flex;
-      gap: 20px;
-    }
-
-    .flex-box {
-      flex: 1;
-      border: 2px solid black;
-      padding: 10px;
-    }
-
-    .bg-box {
-      background-image: url('https://via.placeholder.com/800x200');
+    /* === Top banner === */
+    .hero {
+      background-image: url('https://via.placeholder.com/1200x300'); /* Replace this */
       background-size: cover;
       background-position: center;
       color: white;
-      padding: 40px;
+      text-align: center;
+      padding: 60px 20px;
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+    /* === Main layout === */
+    .three-column {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+      padding: 10px;
+      background-color: #fdfdfd;
+    }
+
+    /* === Left column boxes === */
+    .bg-box {
+      background-image: url('https://via.placeholder.com/300x100'); /* Replace */
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 20px;
       border-radius: 10px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    /* === Middle column image === */
+    .portrait {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* === Responsive tweaks === */
+    @media (max-width: 800px) {
+      .three-column {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1>📐 Demo Layout</h1>
-
-  <div class="box">
-    <h2>1. Basic Block</h2>
-    <p>This box is a regular div with a border. It takes up the full width.</p>
+  <div class="hero">
+    Max Bernstein
   </div>
 
-  <div class="flex-container">
-    <div class="flex-box">Left box</div>
-    <div class="flex-box">Right box</div>
-  </div>
+  <div class="three-column">
+    <!-- LEFT: Repeated background boxes -->
+    <div class="column">
+      <div class="bg-box">Paper 1</div>
+      <div class="bg-box">Paper 2</div>
+      <div class="bg-box">Paper 3</div>
+    </div>
 
-  <div class="box">
-    <h2>2. Image Example</h2>
-    <img src="https://via.placeholder.com/150" alt="Sample image">
-  </div>
+    <!-- MIDDLE: Photo + bio -->
+    <div class="column">
+      <img src="https://via.placeholder.com/300x400" class="portrait" alt="Picture of Max">
+      <p>
+        I'm a PhD student at Yale studying statistics and data science.
+        I work on problems related to inference, spin glasses, and algorithmic complexity.
+        I love Taco Bell, my dog Finn, and a good espresso.
+      </p>
+    </div>
 
-  <div class="bg-box">
-    <h2>3. Background Image Box</h2>
-    <p>This text is layered on top of a background image.</p>
+    <!-- RIGHT: Just text -->
+    <div class="column">
+      <h2>Research interests</h2>
+      <p>
+        Approximate message passing, nonconvex optimization, replica symmetry breaking,
+        spin glass models, and the intersection of probability, statistical physics, and algorithms.
+      </p>
+    </div>
   </div>
 </body>
 </html>
