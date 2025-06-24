@@ -9,36 +9,41 @@
       font-family: Georgia, serif;
     }
 
-    /* === Top banner === */
+    /* === Top banner with Game of Life === */
     .hero {
-      background-image: url('https://t3.ftcdn.net/jpg/05/01/52/36/360_F_501523654_iTeRiR15SpnekpBQCWf11sip7THqF5oU.jpg'); /* Replace this */
-      background-size: cover;
-      background-position: center;
-      color: black;
+      position: relative;
+      overflow: hidden;
       text-align: center;
+      color: white;
       padding: 60px 20px;
       font-size: 2.5em;
       font-weight: bold;
+    }
+    .hero canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      background: #111;
+    }
+    .hero .hero-content {
+      position: relative;
+      z-index: 1;
     }
 
     /* === Main layout === */
     .three-column {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      padding: 20px;
       gap: 20px;
+      padding: 20px;
     }
-
     .column {
       flex: 1;
       padding: 10px;
       background-color: #fdfdfd;
     }
-
-    /* === Left column boxes === */
     .bg-box {
-      background-image: url('https://t3.ftcdn.net/jpg/05/01/52/36/360_F_501523654_iTeRiR15SpnekpBQCWf11sip7THqF5oU.jpg'); /* Replace */
+      background-image: url('https://t3.ftcdn.net/jpg/05/01/52/36/360_F_501523654_iTeRiR15SpnekpBQCWf11sip7THqF5oU.jpg');
       background-size: cover;
       background-position: center;
       color: black;
@@ -47,67 +52,128 @@
       margin-bottom: 60px;
       font-weight: bold;
     }
-
-    /* === Middle column image === */
     .portrait {
-  width: 220px;
-  display: block;
-  margin: 0 auto;
-  border-radius: 10px;
-}
-
-    /* === Responsive tweaks === */
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+      width: 220px;
+    }
     @media (max-width: 800px) {
-      .three-column {
-        flex-direction: column;
-      }
+      .three-column { flex-direction: column; }
     }
   </style>
 </head>
-
 <body>
+
   <div class="hero">
-    Max Lovig
+    <canvas id="banner-life"></canvas>
+    <div class="hero-content">Max Lovig</div>
   </div>
 
   <div class="three-column">
-    <!-- LEFT: Repeated background boxes -->
     <div class="column">
       <div class="bg-box">Papers</div>
       <div class="bg-box">Code</div>
       <div class="bg-box">Slides</div>
       <div class="bg-box">Vita</div>
     </div>
-<!-- MIDDLE: Photo + bio -->
-<div class="column">
-  <img src="me.png.png" alt="Picture of Max" class="portrait" style="width:220px;">
 
-  <p>HI! I'm a PhD student at Yale in statistics. I like thinking about:</p>
-
-  <ul>
-    <li>High-dimensional probability</li>
-    <li>Finite-letter analysis of complex algorithms</li>
-    <li>Barriers that produce algorithmic hardness</li>
-  </ul>
-</div>
-
-    <!-- RIGHT: Just text -->
     <div class="column">
-<h2> Just try to find me!</h2>
+      <img src="me.png.png" alt="Picture of Max" class="portrait">
+      <p>HI! I'm a PhD student at Yale in statistics. I like thinking about:</p>
+      <ul>
+        <li>High-dimensional probability</li>
+        <li>Finite-letter analysis of complex algorithms</li>
+        <li>Barriers that produce algorithmic hardness</li>
+      </ul>
+    </div>
 
-<p><strong>Office:</strong> Kline Tower, Room 1039</p>
-
-<p><strong>Address:</strong><br>
-Yale University, Dept of Statistics and Data Science<br>
-Kline Tower, 219 Prospect Street<br>
-New Haven, CT 06511</p>
-
-<p><strong>Phone:</strong><br>
-203-528-6707</p>
-
-<p><strong>Email:</strong>
-<a href="mailto:max.lovig@yale.edu">max.lovig@yale.edu</a></p>
+    <div class="column">
+      <h2>Just try to find me!</h2>
+      <p><strong>Office:</strong> Kline Tower, Room 1039</p>
+      <p><strong>Address:</strong><br>
+         Yale University, Dept of Statistics and Data Science<br>
+         Kline Tower, 219 Prospect Street<br>
+         New Haven, CT 06511
+      </p>
+      <p><strong>Phone:</strong><br>203-528-6707</p>
+      <p><strong>Email:</strong>
+        <a href="mailto:max.lovig@yale.edu">max.lovig@yale.edu</a>
+      </p>
     </div>
   </div>
+
+  <script>
+    // Game of Life banner
+    const cellSize = 8;
+    const canvas = document.getElementById('banner-life');
+    const ctx = canvas.getContext('2d');
+    let cols, rows, grid;
+
+    function init() {
+      const { width, height } = canvas.getBoundingClientRect();
+      canvas.width = width;
+      canvas.height = height;
+      cols = Math.floor(width / cellSize);
+      rows = Math.floor(height / cellSize);
+      grid = Array.from({length: cols}, () =>
+        Array.from({length: rows}, () => Math.random() > 0.7 ? 1 : 0)
+      );
+    }
+
+    function update() {
+      const next = grid.map(arr => arr.slice());
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          let n = 0;
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (dx || dy) {
+                const nx = (x + dx + cols) % cols;
+                const ny = (y + dy + rows) % rows;
+                n += grid[nx][ny];
+              }
+            }
+          }
+          next[x][y] = grid[x][y] 
+            ? (n === 2 || n === 3 ? 1 : 0)
+            : (n === 3 ? 1 : 0);
+        }
+      }
+      grid = next;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0f0';
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          if (grid[x][y]) {
+            ctx.fillRect(
+              x * cellSize,
+              y * cellSize,
+              cellSize - 1,
+              cellSize - 1
+            );
+          }
+        }
+      }
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('load', () => {
+      init();
+      loop();
+    });
+    window.addEventListener('resize', () => {
+      init();
+    });
+  </script>
+
 </body>
 </html>
