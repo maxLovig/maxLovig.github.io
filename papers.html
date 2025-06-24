@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your favorite scholar's favorite scholar</title>
+  <title>Papers – Max’s Site</title>
   <style>
     body {
       margin: 0;
       background-color: #f5f5f5;
       font-family: Times, serif;
     }
-    /* === Banner with HighLife === */
+    /* === Banner === */
     .hero {
       position: relative;
       overflow: hidden;
@@ -30,7 +30,7 @@
       position: relative;
       z-index: 1;
     }
-    /* === Main content area === */
+    /* === Main content === */
     .content {
       max-width: 800px;
       margin: 40px auto;
@@ -40,20 +40,39 @@
       margin-bottom: 20px;
       font-size: 2em;
     }
-    .page-list {
-      list-style: none;
+    /* === Paper cards === */
+    .paper-list {
+      display: grid;
+      gap: 1.5rem;
       padding: 0;
+      list-style: none;
     }
-    .page-list li {
-      margin: 10px 0;
+    .paper {
+      background: white;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .page-list a {
-      text-decoration: none;
+    .paper h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1.2em;
+    }
+    .paper h3 a {
       color: #0077cc;
-      font-weight: bold;
+      text-decoration: none;
     }
-    .page-list a:hover {
+    .paper h3 a:hover {
       text-decoration: underline;
+    }
+    .paper .meta {
+      margin: 0 0 0.6rem;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .paper .abstract {
+      margin: 0;
+      font-size: 1em;
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -66,15 +85,34 @@
 
   <div class="content">
     <h1>Papers</h1>
+
+    <div class="paper-list">
+      <article class="paper">
+        <h3><a href="pdfs/awesome-paper.pdf">Title of Awesome Paper</a></h3>
+        <p class="meta">Max Lovig, Claire Smith; NeurIPS 2025</p>
+        <p class="abstract">
+          A short 1–2 sentence summary of what this paper does.
+        </p>
+      </article>
+
+      <article class="paper">
+        <h3><a href="pdfs/another-paper.pdf">Another Cool Result</a></h3>
+        <p class="meta">A. Author, B. Author; J. Stat. Mech., 2024</p>
+        <p class="abstract">
+          Brief abstract or highlight of this work.
+        </p>
+      </article>
+
+      <!-- repeat one <article class="paper">…</article> per paper -->
+    </div>
   </div>
 
   <script>
-    // Game of Life banner (same as index.html)
+    // Game of Life banner
     const cellSize = 3;
     const canvas = document.getElementById('banner-life');
     const ctx = canvas.getContext('2d');
     let cols, rows, grid;
-
     function init() {
       const { width, height } = canvas.getBoundingClientRect();
       canvas.width = width;
@@ -85,7 +123,6 @@
         Array.from({length: rows}, () => Math.random() > 0.7 ? 1 : 0)
       );
     }
-
     function update() {
       const next = grid.map(arr => arr.slice());
       for (let x = 0; x < cols; x++) {
@@ -107,9 +144,7 @@
       }
       grid = next;
     }
-
     const aliveColor = '#FF69B4';
-
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = aliveColor;
@@ -126,18 +161,17 @@
         }
       }
     }
-
     function loop() {
       update();
       draw();
       requestAnimationFrame(loop);
     }
-
     window.addEventListener('load', () => {
       init();
       loop();
     });
     window.addEventListener('resize', init);
   </script>
+
 </body>
 </html>
