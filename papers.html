@@ -7,9 +7,9 @@
     body {
       margin: 0;
       background-color: #f5f5f5;
-      font-family: Georgia, serif;
+      font-family: Times, serif;
     }
-    /* === Banner with Game of Life === */
+    /* === Banner with HighLife === */
     .hero {
       position: relative;
       overflow: hidden;
@@ -76,7 +76,7 @@
   </div>
 
   <script>
-    // Game of Life banner (same as index.html)
+    // HighLife banner (B36/S23)
     const cellSize = 8;
     const canvas = document.getElementById('banner-life');
     const ctx = canvas.getContext('2d');
@@ -107,9 +107,13 @@
               }
             }
           }
-          next[x][y] = grid[x][y]
-            ? (n === 2 || n === 3 ? 1 : 0)
-            : (n === 3 ? 1 : 0);
+          if (grid[x][y]) {
+            // survive on 2 or 3
+            next[x][y] = (n === 2 || n === 3) ? 1 : 0;
+          } else {
+            // birth on 3 or 6
+            next[x][y] = (n === 3 || n === 6) ? 1 : 0;
+          }
         }
       }
       grid = next;
