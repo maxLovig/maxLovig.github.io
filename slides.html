@@ -3,11 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <title>Your favorite scholar's favorite scholar</title>
-  <link rel="stylesheet" href="styles.css"> <!-- if you extracted CSS -->
+  <style>
+    body {
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: Georgia, serif;
+    }
+    /* === Banner with Game of Life === */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      color: white;
+      padding: 60px 20px;
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+    .hero canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      background: #111;
+    }
+    .hero .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    /* === Main content area === */
+    .content {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .content h1 {
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+    .page-list {
+      list-style: none;
+      padding: 0;
+    }
+    .page-list li {
+      margin: 10px 0;
+    }
+    .page-list a {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+    }
+    .page-list a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Papers</h1>
-  <p>List your papers here…</p>
-  <p><a href="index.html">← back home</a></p>
+
+  <div class="hero">
+    <canvas id="banner-life"></canvas>
+    <div class="hero-content">Papers</div>
+  </div>
+
+  <div class="content">
+    <h1>Code</h1>
+  </div>
+
+  <script>
+    // Game of Life banner (same as index.html)
+    const cellSize = 3;
+    const canvas = document.getElementById('banner-life');
+    const ctx = canvas.getContext('2d');
+    let cols, rows, grid;
+
+    function init() {
+      const { width, height } = canvas.getBoundingClientRect();
+      canvas.width = width;
+      canvas.height = height;
+      cols = Math.floor(width / cellSize);
+      rows = Math.floor(height / cellSize);
+      grid = Array.from({length: cols}, () =>
+        Array.from({length: rows}, () => Math.random() > 0.7 ? 1 : 0)
+      );
+    }
+
+    function update() {
+      const next = grid.map(arr => arr.slice());
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          let n = 0;
+          for (let dx = -1; dx <= 1; dx++) {
+            for (let dy = -1; dy <= 1; dy++) {
+              if (dx || dy) {
+                const nx = (x + dx + cols) % cols;
+                const ny = (y + dy + rows) % rows;
+                n += grid[nx][ny];
+              }
+            }
+          }
+          next[x][y] = grid[x][y]
+            ? (n === 2 || n === 3 ? 1 : 0)
+            : (n === 3 ? 1 : 0);
+        }
+      }
+      grid = next;
+    }
+
+    const aliveColor = '#FF69B4';
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = aliveColor;
+      for (let x = 0; x < cols; x++) {
+        for (let y = 0; y < rows; y++) {
+          if (grid[x][y]) {
+            ctx.fillRect(
+              x * cellSize,
+              y * cellSize,
+              cellSize - 1,
+              cellSize - 1
+            );
+          }
+        }
+      }
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('load', () => {
+      init();
+      loop();
+    });
+    window.addEventListener('resize', init);
+  </script>
+
 </body>
 </html>

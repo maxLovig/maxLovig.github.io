@@ -70,7 +70,7 @@
 
   <script>
     // Game of Life banner (same as index.html)
-    const cellSize = 8;
+    const cellSize = 3;
     const canvas = document.getElementById('banner-life');
     const ctx = canvas.getContext('2d');
     let cols, rows, grid;
@@ -108,7 +108,7 @@
       grid = next;
     }
 
-    const aliveColor = '#FFD700';
+    const aliveColor = '#89CFF0';
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
