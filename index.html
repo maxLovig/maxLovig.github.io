@@ -45,16 +45,18 @@
       background-color: transparent;
     }
     .bg-box {
-      width: 100%;
-      background-image: url('https://thumbs.dreamstime.com/b/yellow-topographic-contour-lines-seamless-map-pattern-geometric-cartographic-designs-361429090.jpg');
+      display: block;           /* ← enable width & margin-bottom */
+      width: 100%;              /* or a fixed px if you don’t want full width */
+      box-sizing: border-box;   /* include padding in that width */
+      background-image: url('…');
       background-size: cover;
       background-position: center;
-      color: black;
       padding: 20px;
       border-radius: 10px;
-      margin-bottom: 100px;
-      font-weight: bold;
-      text-decoration: none; 
+      margin-bottom: 60px;      /* now actually pushes the next box down */
+      text-align: center;
+      text-decoration: none;
+      color: black;
     }
     .portrait {
       display: block;
@@ -84,7 +86,7 @@
 
     <div class="column">
       <img src="me.png.png" alt="Picture of Max" class="portrait">
-      <p>HI! I'm a statistics PhD student at Yale at Yale University.</p>
+      <p>HI! I'm a statistics PhD student at Yale University.</p>
       <p>I'm currently thinking about:</p>
       <ul>
         <li>High-dimensional probability</li>
