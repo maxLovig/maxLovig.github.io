@@ -54,7 +54,7 @@
       padding: 20px;
       border-radius: 10px;
       margin-bottom: 60px;      /* now actually pushes the next box down */
-      text-align: center;
+      text-align: left;
       text-decoration: none;
       color: black;
     }
@@ -117,14 +117,6 @@
     const ctx = canvas.getContext('2d');
     let cols, rows, grid;
 
-/*************  ✨ Windsurf Command ⭐  *************/
-    /**
-     * Initialize the Game of Life grid, given the current width and height
-     * of the canvas.
-     *
-     * @returns {undefined}
-     */
-/*******  746d1616-bd48-4040-b2ac-9c21c141617d  *******/
     function init() {
       const { width, height } = canvas.getBoundingClientRect();
       canvas.width = width;
