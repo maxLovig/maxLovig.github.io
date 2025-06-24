@@ -69,7 +69,7 @@
   </div>
 
   <script>
-    // HighLife banner (B36/S23)
+    // Game of Life banner (same as index.html)
     const cellSize = 3;
     const canvas = document.getElementById('banner-life');
     const ctx = canvas.getContext('2d');
@@ -100,19 +100,15 @@
               }
             }
           }
-          if (grid[x][y]) {
-            // survive on 2 or 3
-            next[x][y] = (n === 2 || n === 3) ? 1 : 0;
-          } else {
-            // birth on 3 or 6
-            next[x][y] = (n === 3 || n === 6) ? 1 : 0;
-          }
+          next[x][y] = grid[x][y]
+            ? (n === 2 || n === 3 ? 1 : 0)
+            : (n === 3 ? 1 : 0);
         }
       }
       grid = next;
     }
 
-    const aliveColor = '#32CD32';
+    const aliveColor = '#FF69B4';
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -143,6 +139,5 @@
     });
     window.addEventListener('resize', init);
   </script>
-
 </body>
 </html>
