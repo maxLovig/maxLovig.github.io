@@ -78,10 +78,10 @@
 
   <div class="three-column">
     <div class="column">
-  <a href="papers.html" class="bg-box">Papers</a>
-  <a href="code.html"   class="bg-box">Code</a>
-  <a href="slides.html" class="bg-box">Slides</a>
-  <a href="vita.html"   class="bg-box">Vita</a>
+  <a href="papers.html" class="bg-box"><strong>Papers</strong></a>
+  <a href="code.html"   class="bg-box"><strong>Code</strong></a>
+  <a href="slides.html" class="bg-box"><strong>Slides</strong></a>
+  <a href="vita.html"   class="bg-box"><strong>Vita</strong></a>
 </div>
 
     <div class="column">
@@ -117,6 +117,14 @@
     const ctx = canvas.getContext('2d');
     let cols, rows, grid;
 
+/*************  ✨ Windsurf Command ⭐  *************/
+    /**
+     * Initialize the Game of Life grid, given the current width and height
+     * of the canvas.
+     *
+     * @returns {undefined}
+     */
+/*******  746d1616-bd48-4040-b2ac-9c21c141617d  *******/
     function init() {
       const { width, height } = canvas.getBoundingClientRect();
       canvas.width = width;
