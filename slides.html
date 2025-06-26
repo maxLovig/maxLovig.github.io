@@ -55,6 +55,23 @@
     .page-list a:hover {
       text-decoration: underline;
     }
+    .slide-card {
+      display: inline-block;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .thumb-container {
+      width: 200px;
+      height: 150px;
+    }
+    .slide-title {
+      text-align: center;
+      padding: 5px;
+      font-weight: bold;
+    }
+
   </style>
 </head>
 <body>
@@ -63,6 +80,21 @@
     <canvas id="banner-life"></canvas>
     <div class="hero-content">Slides</div>
   </div>
+
+<div class="slide-card">
+  <a href="slides/talk.pdf" download>
+    <div class="thumb-container">
+      <object 
+        data="slides/talk.pdf#page=1&zoom=200" 
+        type="application/pdf" 
+        width="200" 
+        height="150">
+        <!-- fallback link -->
+      </object>
+    </div>
+    <div class="slide-title">Talk Title</div>
+  </a>
+</div>
 
   <script>
     // Game of Life banner (same as index.html)
